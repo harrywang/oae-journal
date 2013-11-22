@@ -96,7 +96,7 @@ Our production environment. Fully scaled-out for redundancy rather than performa
 Contains the configuration for the QA / Release / Unit test servers.
 
 
-### AWS/Vagrant 
+### Running Vagrant with AWS
 
 Follow [Vagrant-AWS instruction](https://github.com/mitchellh/vagrant-aws) to setup vagrant for aws. Make sure that ssh is allowed default security group
 
