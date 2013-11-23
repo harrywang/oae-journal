@@ -1,4 +1,3 @@
-oae-journal
-===========
+# My Learning Journal for OAE
 
-My learning journal for OAE
+In this repo, I maintain some documents for various aspects of OAE based on my own exercises and the help from the OAE mailing list.
