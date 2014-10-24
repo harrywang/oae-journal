@@ -1,0 +1,49 @@
+brew install cassandra 2.0.9, the new 2.1.x does not work
+brew tap homebrew/boneyard
+brew versions cassandra
+cd $(brew --prefix)
+git checkout a9e856c /usr/local/Library/Formula/cassandra.rb
+brew install cassandra
+
+********
+Simple Workflow for install older version formula in Homebrew
+Step 1:
+
+Navigate to your homebrew base directory (usually this is /usr/local) Example:
+
+cd /usr/local
+Or, you can do
+
+cd `brew --prefix`
+Step 2:
+
+Enter brew versions <formula> ( is the formula you want to install).
+
+You will then get something like:
+
+1.0.1 git checkout 1234567 Library/Formula/<formula>.rb
+1.0.0 git checkout 0123456 Library/Formula/<formula>.rb
+...
+Step 3:
+
+Choose the desired version and check it out via copy and paste of the desired version line (leave out the version number in the beginning).
+
+Example for getting 1.0.0:
+
+git checkout 0123456 Library/Formula/<formula>.rb
+Step 3.5 (maybe necessary)
+
+Do this if you already have another version installed.
+
+brew unlink <formula>
+Step 4:
+
+brew install <formula>
+Step 5:
+
+DONE, you can now use brew switch <formula> <version> to switch between versions.
+
+*******************
+
+
+
