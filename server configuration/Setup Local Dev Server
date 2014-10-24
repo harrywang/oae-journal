@@ -66,3 +66,49 @@ Harrys-MacBook-Pro:oae-dev harrywang$ cd elasticsearch-1.1.2/
 Harrys-MacBook-Pro:elasticsearch-1.1.2 harrywang$ bin/elasticsearch -f
 getopt: illegal option -- f
 
+***
+sbin/rabbitmq-server
+
+****
+brew install graphicsmagick
+
+****
+
+Harrys-MacBook-Pro:oae-dev harrywang$ cd nginx-1.7.6/
+Harrys-MacBook-Pro:nginx-1.7.6 harrywang$ ./configure --with-pcre=../pcre-8.36/
+
+Harrys-MacBook-Pro:nginx-1.7.6 harrywang$ sudo make install
+
+****
+
+Harrys-MacBook-Pro:oae-dev harrywang$ git clone git://github.com/oaeproject/Hilary.git
+
+Harrys-MacBook-Pro:oae-dev harrywang$ git clone git://github.com/oaeproject/3akai-ux.git
+
+****
+add the following entries to your /etc/hosts file:
+
+127.0.0.1   admin.oae.com
+127.0.0.1   tenant1.oae.com
+
+****
+create files folder at the same level as Hilary
+
+****
+Nginx:
+
+Harrys-MacBook-Pro:~ harrywang$ id
+uid=501(harrywang) gid=20(staff) groups=20(staff),401(com.apple.sharepoint.group.1),12(everyone),61(localaccounts),79(_appserverusr),80(admin),81(_appserveradm),98(_lpadmin),33(_appstore),100(_lpoperator),204(_developer),398(com.apple.access_screensharing),399(com.apple.access_ssh)
+
+Change all Nginx (see attached file)
+
+sudo /usr/local/nginx/sbin/nginx -c /Users/harrywang/code/oae-dev/3akai-ux/nginx/nginx.conf
+
+Harrys-MacBook-Pro:Hilary harrywang$ npm install -d
+
+Harrys-MacBook-Pro:Hilary harrywang$ node app.js | node_modules/.bin/bunyan
+
+
+
+
+
