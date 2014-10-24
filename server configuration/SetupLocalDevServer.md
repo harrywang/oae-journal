@@ -1,62 +1,57 @@
-****install cassandra****
+### ****install cassandra****
 cassandra 2.0.10 was installed, just extract to the same folder.
 
 See the note about Homebrew way in the end.
-****install node****
+### ****install node****
 Node was installed at
-
    /usr/local/bin/node
-
 npm was installed at
-
    /usr/local/bin/npm
-
 Make sure that /usr/local/bin is in your $PATH.
 
-****install redis****
+### ****install redis****
 download redis, extract the fold, 
 
 cd [redis-stable folder]
 make
 src/redis-server 
 
-****install elasticsearch****
+### ****install elasticsearch****
 Harrys-MacBook-Pro:oae-dev harrywang$ cd elasticsearch-1.1.2/
 Harrys-MacBook-Pro:elasticsearch-1.1.2 harrywang$ bin/elasticsearch -f
 getopt: illegal option -- f
 
-****install rabbimq****
+### ****install rabbimq****
 sbin/rabbitmq-server
 
-****install graphicsmagick****
+### ****install graphicsmagick****
 brew install graphicsmagick
 
-****skipped Preview Processor****
+### ****skipped Preview Processor****
 
-****skipped Eitherpad****
+### ****skipped Eitherpad****
 
-****install nginx and pcre****
+### ****install nginx and pcre****
 
 Harrys-MacBook-Pro:oae-dev harrywang$ cd nginx-1.7.6/
 Harrys-MacBook-Pro:nginx-1.7.6 harrywang$ ./configure --with-pcre=../pcre-8.36/
 Harrys-MacBook-Pro:nginx-1.7.6 harrywang$ sudo make install
 
-****install Hilary and 3akai-ux****
+### ****install Hilary and 3akai-ux****
 
 Harrys-MacBook-Pro:oae-dev harrywang$ git clone git://github.com/oaeproject/Hilary.git
 Harrys-MacBook-Pro:oae-dev harrywang$ git clone git://github.com/oaeproject/3akai-ux.git
 
-****
+### ****configure hosts file****
 add the following entries to your /etc/hosts file:
 
 127.0.0.1   admin.oae.com
 127.0.0.1   tenant1.oae.com
 
-****
+### ****configure Hilary****
 create files folder at the same level as Hilary
 
-****
-Nginx:
+### ****configure Nginx****
 
 Harrys-MacBook-Pro:~ harrywang$ id
 uid=501(harrywang) gid=20(staff) groups=20(staff),401(com.apple.sharepoint.group.1),12(everyone),61(localaccounts),79(_appserverusr),80(admin),81(_appserveradm),98(_lpadmin),33(_appstore),100(_lpoperator),204(_developer),398(com.apple.access_screensharing),399(com.apple.access_ssh)
@@ -69,25 +64,17 @@ Harrys-MacBook-Pro:Hilary harrywang$ npm install -d
 
 Harrys-MacBook-Pro:Hilary harrywang$ node app.js | node_modules/.bin/bunyan
 
-NOTE: 
+### ****NOTE**** 
 
 no need to:
-
 Configure the config.files.uploadDir property to point to a directory that exists. The reference to this directory should not have a trailing slash. This directory is used to store files such as profile pictures, content bodies, previews, etc...
-
 
 Not done:
 Etherpad setup
 
-and
-
 Configure the config.etherpad.apikey property to the API Key that can be found in your-etherpad-dir/APIKEY.txt
 
-*****
-
-
-***********
-nginx.conf:
+### ****nginx.conf****
 
 user                    harrywang staff;
 worker_processes        5;
@@ -732,8 +719,7 @@ http {
     include /Users/harrywang/code/oae-dev/3akai-ux/nginx/mime.conf;
 }
 
-
-****************homebrew cassandra*************
+#### ****homebrew cassandra****
 brew install cassandra 2.0.9, the new 2.1.x does not work
 brew tap homebrew/boneyard
 brew versions cassandra
