@@ -59,11 +59,6 @@ download redis, extract the fold,
 
 cd [redis-stable folder]
 make
+src/redis-server 
 
-
-
-make
-
-
-
-
+*****
