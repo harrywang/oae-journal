@@ -62,3 +62,7 @@ make
 src/redis-server 
 
 *****
+Harrys-MacBook-Pro:oae-dev harrywang$ cd elasticsearch-1.1.2/
+Harrys-MacBook-Pro:elasticsearch-1.1.2 harrywang$ bin/elasticsearch -f
+getopt: illegal option -- f
+
