@@ -44,6 +44,16 @@ Step 5:
 DONE, you can now use brew switch <formula> <version> to switch between versions.
 
 *******************
+Node was installed at
+
+   /usr/local/bin/node
+
+npm was installed at
+
+   /usr/local/bin/npm
+
+Make sure that /usr/local/bin is in your $PATH.
+
 
 
 
