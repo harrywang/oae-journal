@@ -1,49 +1,8 @@
-brew install cassandra 2.0.9, the new 2.1.x does not work
-brew tap homebrew/boneyard
-brew versions cassandra
-cd $(brew --prefix)
-git checkout a9e856c /usr/local/Library/Formula/cassandra.rb
-brew install cassandra
+****install cassandra****
+cassandra 2.0.10 was installed, just extract to the same folder.
 
-********
-Simple Workflow for install older version formula in Homebrew
-Step 1:
-
-Navigate to your homebrew base directory (usually this is /usr/local) Example:
-
-cd /usr/local
-Or, you can do
-
-cd `brew --prefix`
-Step 2:
-
-Enter brew versions <formula> ( is the formula you want to install).
-
-You will then get something like:
-
-1.0.1 git checkout 1234567 Library/Formula/<formula>.rb
-1.0.0 git checkout 0123456 Library/Formula/<formula>.rb
-...
-Step 3:
-
-Choose the desired version and check it out via copy and paste of the desired version line (leave out the version number in the beginning).
-
-Example for getting 1.0.0:
-
-git checkout 0123456 Library/Formula/<formula>.rb
-Step 3.5 (maybe necessary)
-
-Do this if you already have another version installed.
-
-brew unlink <formula>
-Step 4:
-
-brew install <formula>
-Step 5:
-
-DONE, you can now use brew switch <formula> <version> to switch between versions.
-
-*******************
+See the note about Homebrew way in the end.
+****install node****
 Node was installed at
 
    /usr/local/bin/node
@@ -54,35 +13,37 @@ npm was installed at
 
 Make sure that /usr/local/bin is in your $PATH.
 
-****
+****install redis****
 download redis, extract the fold, 
 
 cd [redis-stable folder]
 make
 src/redis-server 
 
-*****
+****install elasticsearch****
 Harrys-MacBook-Pro:oae-dev harrywang$ cd elasticsearch-1.1.2/
 Harrys-MacBook-Pro:elasticsearch-1.1.2 harrywang$ bin/elasticsearch -f
 getopt: illegal option -- f
 
-***
+****install rabbimq****
 sbin/rabbitmq-server
 
-****
+****install graphicsmagick****
 brew install graphicsmagick
 
-****
+****skipped Preview Processor****
+
+****skipped Eitherpad****
+
+****install nginx and pcre****
 
 Harrys-MacBook-Pro:oae-dev harrywang$ cd nginx-1.7.6/
 Harrys-MacBook-Pro:nginx-1.7.6 harrywang$ ./configure --with-pcre=../pcre-8.36/
-
 Harrys-MacBook-Pro:nginx-1.7.6 harrywang$ sudo make install
 
-****
+****install Hilary and 3akai-ux****
 
 Harrys-MacBook-Pro:oae-dev harrywang$ git clone git://github.com/oaeproject/Hilary.git
-
 Harrys-MacBook-Pro:oae-dev harrywang$ git clone git://github.com/oaeproject/3akai-ux.git
 
 ****
@@ -772,5 +733,49 @@ http {
 }
 
 
+****************homebrew cassandra*************
+brew install cassandra 2.0.9, the new 2.1.x does not work
+brew tap homebrew/boneyard
+brew versions cassandra
+cd $(brew --prefix)
+git checkout a9e856c /usr/local/Library/Formula/cassandra.rb
+brew install cassandra
 
+********
+Simple Workflow for install older version formula in Homebrew
+Step 1:
 
+Navigate to your homebrew base directory (usually this is /usr/local) Example:
+
+cd /usr/local
+Or, you can do
+
+cd `brew --prefix`
+Step 2:
+
+Enter brew versions <formula> ( is the formula you want to install).
+
+You will then get something like:
+
+1.0.1 git checkout 1234567 Library/Formula/<formula>.rb
+1.0.0 git checkout 0123456 Library/Formula/<formula>.rb
+...
+Step 3:
+
+Choose the desired version and check it out via copy and paste of the desired version line (leave out the version number in the beginning).
+
+Example for getting 1.0.0:
+
+git checkout 0123456 Library/Formula/<formula>.rb
+Step 3.5 (maybe necessary)
+
+Do this if you already have another version installed.
+
+brew unlink <formula>
+Step 4:
+
+brew install <formula>
+Step 5:
+
+DONE, you can now use brew switch <formula> <version> to switch between versions.
+*****************
