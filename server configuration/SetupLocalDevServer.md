@@ -1,7 +1,7 @@
 ### ****install cassandra****
 cassandra 2.0.10 was installed, just extract to the same folder.
 
-See the note about Homebrew way in the end.
+DO NOT USE HOMEBREW, BUT THE NOTE IS: See the note about Homebrew way in the end.
 ### ****install node****
 Node was installed at
    /usr/local/bin/node
