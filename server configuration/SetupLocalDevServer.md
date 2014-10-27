@@ -18,7 +18,9 @@ src/redis-server
 
 ### ****install elasticsearch****
 Harrys-MacBook-Pro:oae-dev harrywang$ cd elasticsearch-1.1.2/
+
 Harrys-MacBook-Pro:elasticsearch-1.1.2 harrywang$ bin/elasticsearch -f
+
 getopt: illegal option -- f
 
 ### ****install rabbimq****
@@ -34,7 +36,9 @@ brew install graphicsmagick
 ### ****install nginx and pcre****
 
 Harrys-MacBook-Pro:oae-dev harrywang$ cd nginx-1.7.6/
+
 Harrys-MacBook-Pro:nginx-1.7.6 harrywang$ ./configure --with-pcre=../pcre-8.36/
+
 Harrys-MacBook-Pro:nginx-1.7.6 harrywang$ sudo make install
 
 ### ****install Hilary and 3akai-ux****
