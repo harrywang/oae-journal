@@ -44,6 +44,7 @@ Harrys-MacBook-Pro:nginx-1.7.6 harrywang$ sudo make install
 ### ****install Hilary and 3akai-ux****
 
 Harrys-MacBook-Pro:oae-dev harrywang$ git clone git://github.com/oaeproject/Hilary.git
+
 Harrys-MacBook-Pro:oae-dev harrywang$ git clone git://github.com/oaeproject/3akai-ux.git
 
 ### ****configure hosts file****
@@ -57,6 +58,7 @@ create files folder at the same level as Hilary
 
 ### ****configure Nginx****
 
+The following is how to get your id and group for you local mac:
 Harrys-MacBook-Pro:~ harrywang$ id
 uid=501(harrywang) gid=20(staff) groups=20(staff),401(com.apple.sharepoint.group.1),12(everyone),61(localaccounts),79(_appserverusr),80(admin),81(_appserveradm),98(_lpadmin),33(_appstore),100(_lpoperator),204(_developer),398(com.apple.access_screensharing),399(com.apple.access_ssh)
 
