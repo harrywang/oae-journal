@@ -48,7 +48,14 @@ end
 
 Change web domain in puppet-hilary/environments/local/hiera/common.json to match your domain names
 
+"web_domain": "yourdomain.com",
+
 Change host names in puppet-hilary/environments/local/modules/localconfig/manifests/hostnames.pp to match your domain names
+
+    host { 'admin.yourdomain.com': ip => '127.0.0.1' }
+    host { 'tenant1.yourdomain.com': ip => '127.0.0.1' }
+    host { 'tenant2.yourdomain.com': ip => '127.0.0.1' }
+    host { 'tenant3.yourdomain.com': ip => '127.0.0.1' }
 
 Add the following to puppet-hilary/provisioning/vagrant/init.sh 
 
