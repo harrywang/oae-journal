@@ -1,0 +1,95 @@
+user                    <%= @owner %> <%= @group %>;
+worker_processes        5;
+worker_rlimit_nofile    8192;
+
+pid         /var/run/nginx.pid;
+lock_file   /var/run/nginx.lock;
+
+events {
+  worker_connections    4096;
+}
+
+http {
+    include <%= @nginx_mimes_path %>;
+
+<% if @rsyslog_enabled -%>
+    access_log syslog:server=<%= @rsyslog_host %>,facility=local0,severity=info,tag=access combined;
+    error_log syslog:server=<%= @rsyslog_host %>,facility=local0,severity=error,tag=error error;
+<% end -%>
+
+    # Allows us to have "server_name" strings up to 32 characters
+    server_names_hash_bucket_size  64;
+
+
+    ####################
+    ## PROXY SETTINGS ##
+    ####################
+
+    proxy_next_upstream error timeout http_502;
+    # Only give the app server 5 seconds for a request before assuming it's down and retrying
+    proxy_connect_timeout   5;
+    proxy_read_timeout      <%= @base_read_timeout %>;
+
+    # Rewrite http headers to upstream servers
+    proxy_http_version 1.1;
+    proxy_redirect off;
+    proxy_set_header Connection "";
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-NginX-Proxy true;
+
+    # Limit requests per second per remote address
+    limit_req_zone          $binary_remote_addr  zone=addr_api:10m          rate=90r/s;
+    limit_req_zone          $binary_remote_addr  zone=addr_api_create:10m   rate=2r/s;
+    limit_req_log_level     error;
+
+
+    ###################
+    ## GZIP SETTINGS ##
+    ###################
+
+    gzip on;
+    gzip_min_length 1000;
+    gzip_http_version 1.1;
+    gzip_comp_level 5;
+    gzip_proxied any;
+    gzip_types application/javascript application/json application/x-javascript application/xml application/xml+rss text/css text/javascript text/plain text/xml;
+
+
+    ##########################
+    ## MAXIMUM REQUEST SIZE ##
+    ##########################
+
+    # Determines the maximum filesize that a user can upload.
+    client_max_body_size 4096M;
+
+
+    ####################
+    ## LOAD BALANCING ##
+    ####################
+
+    upstream globaladminworkers {
+<% @internal_app_ips.each do |ip| -%>
+        server <%= ip %>:2000   max_fails=3 fail_timeout=30s;
+<% end -%>
+
+        keepalive 64;
+    }
+
+    upstream tenantworkers {
+<% @internal_app_ips.each do |ip| -%>
+        server <%= ip %>:2001   max_fails=3 fail_timeout=30s;
+<% end -%>
+
+        keepalive 64;
+    }
+
+    upstream shibworker {
+        server localhost:8080;
+        keepalive 64;
+    }
+
+    # Include all the host-specific configs
+    include <%= @nginx_conf_dir %>/*.conf;
+}

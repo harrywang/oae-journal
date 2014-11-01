@@ -1,0 +1,36 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  # Use the "oae" box to host
+  config.vm.box = "dummy"
+
+  # Share the backend and front-end code with vagrant.
+  # It's assumed that Hilary and 3akai-ux are on the same level as puppet-hilary.
+  # Note that puppet will change some files in these directories
+  config.vm.synced_folder "../Hilary", "/opt/oae"
+  config.vm.synced_folder "../3akai-ux", "/opt/3akai-ux"
+
+  # Run a shell script that will do some basic bootstrapping and finally runs puppet.
+  config.vm.provision "shell", run: "always", :path => "provisioning/vagrant/init.sh"
+
+  # configure aws
+  config.vm.provider :aws do |aws, override|
+    aws.access_key_id = "AKIAIE2B2KM56S7OXIUA"
+    aws.secret_access_key = "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"
+    aws.keypair_name = "oae"
+
+    aws.ami = "ami-7747d01e"
+    aws.region = "us-east-1"
+    aws.instance_type = "m1.medium"
+    aws.security_groups = ["default"]
+    aws.tags = {
+      'Name' => 'oae'
+    }
+
+    override.ssh.username = "ubuntu"
+    override.ssh.private_key_path = "/Users/harrywang/sandbox/keys/oae.pem"
+  end
+
+end

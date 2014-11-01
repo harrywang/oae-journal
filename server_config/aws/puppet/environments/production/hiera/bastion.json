@@ -1,0 +1,8 @@
+{
+    "classes": [
+        "::oaeservice::firewall::ssh",
+        "::oaeservice::oaefabric"
+    ],
+
+    "nagios_hostgroup": "misc"
+}

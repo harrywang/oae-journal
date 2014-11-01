@@ -1,0 +1,172 @@
+{
+    "classes": [
+        "::oaeservice::deps::common",
+        "::oaeservice::firewall::open",
+        "::oaeservice::hosts",
+        "::oaeservice::limits",
+        "::oaeservice::mcollective",
+        "::oaeservice::munin::client",
+        "::oaeservice::nagios",
+        "::oaeservice::nagios::disk",
+        "::oaeservice::nagios::memory",
+        "::oaeservice::ssh",
+        "::oaeservice::users::admin",
+        "::oaeservice::users::deploy"
+    ],
+
+    "nodetype": "%{nodetype}",
+    "nodesuffix": "%{nodesuffix}",
+
+    "admin_users": {
+        "branden": {
+            "pubkey": "AAAAB3NzaC1yc2EAAAABIwAAAQEAr9l2yQjCoZO6D9ANFX0VNSQi7uN1ucqXISjgIcr37D0aAF+/7+fKwvwfAYNj++4rUeWJmzSXDgdVWLBTfQ8bZpb2jx8bvCFbl0jMBiNxhL849iJR/mfpQeXqJ8cYg00lkzuxWtbpynl4kVa+8m1z2v5RBTB9qjpkag7xPj5aplb7pirBgdSOOFeF2hyWkwXwDXfbzPAfCaei9eSTQhgiHqGzKPFz4rdyswT+SWmBusVsFYlclRB5Ig72PgBAt0lb677PI32ZFIWy3wnY0eZVNvmWYj64zWP+nNpidx3BnhNYV2p95vwXf3WLaOTWCgcseRVYKLk0B0VeYN67grLcfQ==",
+            "passwd": "$6$PkqN0kSf$RMt3vHRL0I3sYIcMHo49AmuELhp3MANnZek6JSW4Plsb4830pQzrtYzgEWP723zvJw6hFQ561tw9Pt7NmSrSm1"
+        },
+        "stuartf": {
+            "pubkey": "AAAAB3NzaC1yc2EAAAABIwAAAQEAtmHx7EdE6WVfyfh4K6veFhZLjmbsts99sgmAbqfmsAO/Nxx9/F7ggNe7LnytgsSCqEzqR+kvy32CFEKJjNuF3APJ4o3O8IavsnskVSJ5wDR/Z+KWyzMCecDp7OqVjfNasGY0G4W/SWbWIo+PQFNBC1W7LPdYq6V59Ar/5/ommk0Mxrh8ggS9hFdJlX8/JhBXgp/sLOCoL12jHFkb/Vei+X3ksL9jP2YTAMm0bhT3N7cBz9NJPxnxPAlnCaRiEHQ6NdAzRJ1lA1SH3wfQFkpcShobvHdGIs3kAsqZAXTEwvEFheXHdqB/rUzKRbsdTZLrCtMjxDdZZF1/w7U7MbH0JQ=="
+        },
+        "nicolaas": {
+            "pubkey": "AAAAB3NzaC1yc2EAAAABIwAAAQEAq1HCf4BjEswCl2SfoYoC2agdRtINYyLAsnrv7bPSaZr3XsX8/yJcgzDcbQVpdOlLzbngNVGTt7Q3MvqIH65FB+AAqymWxzzNqEATUdXxVNBV9/ZbNkcJOTK3TJraIIQc3mD1q/Cf9AmMzyErqGWntIiuqHx1yGQ1gEZEMF7mbpDqicVPOhQAzjPIxx8mTOHev1GTXEplBxz0OSeTC107PWnbJdJi6D1gmwEIFvImI3XYUEjQMf7RKRe2KLgtf6lTSWiT27uMtP/eyBVYSjvTU+zfT8H33UD/IzHu7wnzj3KSYeZNeu3vOSimTs2hTc8qq3i9lvmxUemhjeJvGL9/jQ==",
+            "passwd": "$6$US1xSb5O$lL/qguPCoLkqyCVxtyLwtWvQXCTUca99QrA7DLiSr0Qk9vQ1wAG3RIUKBTIyBF8/fH/3zcB8iLm0ZWE5owtu00"
+        },
+        "bert": {
+            "pubkey": "AAAAB3NzaC1yc2EAAAADAQABAAABAQDZ13cPzA3Njj0At4iby17t6/sJYQ3sb4axN6hjhApvunpnXY1hF8OwLlyVF770Zb+biuqHTPAqNvnXCJ8iI/8KllPENM68d87ACAizEiRfsMWDmd9JmsTr2iuD3OHFxG+hLY72+Vf7mWvQbNH/VmXxZj5Jofd/ycAJY4HeYJtQVkMZ91OxsWPf5wQPiszabiCpapN2WcKE1wuIGQdLsg9VZ+DcEvha506lmlOHfmhLLgiajHZfZjKCV6XoJ6fmJdbc2wrsDhV+mVEt7udVCmKOd1M0t8MNScWhazx2sYYXw6+zg6z1gfqAZOs9LrqlHNICznfzrZnHRYt680lT6vwZ"
+        },
+        "simong": {
+            "pubkey": "AAAAB3NzaC1yc2EAAAABIwAAAQEA0soT8Mx3eHVbfpqevzdoVSNU7QlQETqqH1N9vIMNucjT4/lEd2Hwb+taHNtx/PA8x4vPIoOjpAp2A9uzjgjLiKZ9spKt3+P+TrmqWysgImFDAIQ0isrA+IsQpjWPB1bxpnoNihiAnYAG5A3G4r6WByVVnmZumPCzDTsKda5USoyu0pNIZMoCUVMZLiFiDfORje83AH0Z81E7DDF6Gatw4vJhtR/FApgGm0MgDjfjW73Jww3PmQkgB4cIzLFugc87xWEDYbrVglg/nDqzPLMyjqnAeaKMUe6ztVGmIGISAoqnUFB5wnD9Z2Is3CQMszsh/tuV1ROXa1o88Bx0l7uVZQ=="
+        }
+    },
+    "deploy_user_passwd": "$6$KIxK1V/a$HpQSDSjkeh9BKsPWnFJ41pojj3ndVUJlkal8o.dpPxWHLxZYFo44OmwKVj7cm8.enpaiBodlNZ8ix/l2Wm0Ge.",
+
+    "web_domain": "oae-performance.oaeproject.org",
+    "web_internal_address": "web0",
+
+    "app_install_method": "git",
+    "app_install_config": {
+        "source": "https://github.com/oaeproject/Hilary",
+        "revision": "master"
+    },
+
+    "app_os_user": "root",
+    "app_os_group": "root",
+    "app_hosts": [ "app0", "app1", "app2", "app3" ],
+    "app_root_dir": "/opt/oae",
+
+    "app_signing_key": "A;SLDFJ984FJW398FJWP4GO5IJSLRTKGJ",
+    "app_cookie_secret": "SODIFJ984FJA984JAFP98WF4PAW984F984FJ9",
+    "app_admin_tenant": "admin",
+
+    "app_files_parent": "/shared",
+    "app_files_dir": "/shared/files",
+    "app_files_nfs": {
+        "server": "10.224.16.126",
+        "source_dir": "/zones/nfs/6ea8d63c-66c8-47e1-80f0-6e31dfa0e24f/shared"
+    },
+
+    "app_use_https": true,
+    "app_strict_https": false,
+
+    "shibboleth_entity_id": "https://shib-sp.oae-performance.oaeproject.org/shibboleth",
+    "shibboleth_keyname": "shib-sp.oae-performance.oaeproject.org",
+    "shibboleth_subjectname": "CN=shib-sp.oae-performance.oaeproject.org",
+    "shibboleth_sp_host": "shib-sp.oae-performance.oaeproject.org",
+
+    "ux_root_dir": "/opt/3akai-ux",
+    "ux_install_method": "git",
+    "ux_install_config": {
+        "source": "https://github.com/oaeproject/3akai-ux",
+        "revision": "master"
+    },
+
+    "db_cluster_name": "OAE Performance Testing Cluster",
+    "db_keyspace": "oae",
+    "db_hosts": [ "db0", "db1", "db2" ],
+    "db_tokens": [ "0", "56713727820156410577229101238628035242", "113427455640312821154458202477256070484" ],
+    "db_timeout": 5000,
+    "db_replication_factor": 3,
+    "db_strategy_class": "SimpleStrategy",
+    "db_index": "%{nodesuffix}",
+    "db_data_dir": "/data/cassandra",
+    "db_os_user": "cassandra",
+    "db_os_group": "cassandra",
+
+    "pp_os_user": "root",
+    "pp_os_group": "root",
+
+    "search_hosts": [ "search0", "search1" ],
+    "search_index": "%{nodesuffix}",
+    "search_data_dir": "/var/lib/elasticsearch",
+    "search_memory_mb": 3072,
+    "search_newsize_mb": 1024,
+    "search_version": "1.1.1",
+
+    "etherpad_internal_hosts": [ "etherpad0", "etherpad1", "etherpad2" ],
+    "etherpad_index": "%{nodesuffix}",
+    "etherpad_api_key": "LSKDFJA0W9FJAOSIDFJ",
+    "etherpad_session_key": "YzI3znrSsxByU1QsRtPZhX6tkxVUoQh1suIDrUcBtewrsBDLPkGRTP6oUqhL",
+    "etherpad_enable_abiword": true,
+    "etherpad_install_config": {
+        "version_major_minor": "1.4",
+        "version_patch": "0-66-e34a4ea",
+        "version_nodejs": "0.10.17"
+    },
+
+    "cache_host": "proxy0",
+    "cache_port": 6379,
+
+    "activitycache_enabled": true,
+    "activitycache_host": "proxy0",
+    "activitycache_port": 6380,
+
+    "email_debug": true,
+    "email_customEmailTemplatesDir": "null",
+    "email_deduplicationInterval": 604800,
+    "email_throttleTimespan": 120,
+    "email_throttleCount": 10,
+    "email_transport": "SMTP",
+    "email_sendmail_path": "/usr/sbin/sendmail",
+    "email_smtp_service": "unset",
+    "email_smtp_port": "unset",
+    "email_smtp_host": "unset",
+    "email_smtp_user": "unset",
+    "email_smtp_pass": "unset",
+    "email_blacklisted_domains": ["example.com", "localhost", "127.0.0.1"],
+
+    "mq_hosts": [ "mq0" ],
+
+    "munin_allowed_regexes": [ "^127\\.0\\.0\\.1$", "^10\\.112\\.3\\.104$", "^75\\.102\\.43\\.87$", "^75\\.102\\.43\\.88$" ],
+
+    "rsyslog_enabled": false,
+    "rsyslog_host": "syslog",
+
+    "nagios_http_username": "nagiosadmin",
+    "nagios_http_password": "$apr1$jdYkGn4R$C/zBGqUA1.Zkra8U4vmNH1",
+    "nagios_enable_notifications": false,
+    "nagios_hostgroup": "misc",
+    "nagios_contact_alias": "OAE Monitoring",
+    "nagios_contact_email": "localhost",
+
+
+    "driver_tsung_version": "1.4.2",
+
+    "nginx::owner": "nginx",
+    "nginx::group": "nginx",
+    "nginx::base_read_timeout": 15,
+    "nginx::rate_limit_api": false,
+    "nginx::ssl_policy": "allow_http",
+    "nginx::version": "1.7.6-1+precise1",
+
+    "redis::owner": "redis",
+    "redis::group": "redis",
+    "redis::version": "2:2.8.2-rwky1~precise",
+
+    "rsyslog::clientOrServer": "client",
+
+    "oaeservice::deps::package::nodejs::nodejs_version": "present",
+
+    "rabbitmq::server::version": "3.1.1-1",
+    "rabbitmq::server::wipe_db_on_cookie_change": true,
+
+    "oaeservice::limits::user_soft_max_files": "16000",
+    "oaeservice::limits::user_hard_max_files": "32000"
+}

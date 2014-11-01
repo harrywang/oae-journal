@@ -1,0 +1,8 @@
+{
+
+    "classes": [
+        "::oaeservice::shibboleth"
+    ],
+
+    "web_domain": "oae-qa1.oaeproject.org"
+}

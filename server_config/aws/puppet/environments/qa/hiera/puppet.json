@@ -1,0 +1,6 @@
+{
+    "classes": [
+        "::oaeservice::puppet",
+        "::oaeservice::oaefabric"
+    ]
+}

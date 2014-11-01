@@ -1,0 +1,8 @@
+{
+    "classes": [
+        "::oaeservice::opscenter",
+        "::oaeservice::postfix"
+    ],
+
+    "dse::opscenter::version": "5.0.0"
+}

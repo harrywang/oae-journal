@@ -1,0 +1,13 @@
+{
+    "classes": [
+        "::oaeservice::firewall::web",
+        "::oaeservice::nginx",
+        "::oaeservice::hilary::files",
+        "::oaeservice::ui",
+        "::oaeservice::nagios::nginx",
+        "::oaeservice::nagios::disk::shared",
+        "::oaeservice::shibboleth"
+    ],
+
+    "nagios_hostgroup": "webservers"
+}

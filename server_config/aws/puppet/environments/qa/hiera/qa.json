@@ -1,0 +1,15 @@
+{
+    "classes": [
+        "::localconfig::ordering::qa",
+        "::oaeqaautomation",
+        "::oaeservice::cassandra::dse",
+        "::oaeservice::elasticsearch",
+        "::oaeservice::etherpad",
+        "::oaeservice::hilary",
+        "::oaeservice::mq",
+        "::oaeservice::nginx",
+        "::oaeservice::postfix",
+        "::oaeservice::redis",
+        "::oaeservice::ui"
+    ]
+}

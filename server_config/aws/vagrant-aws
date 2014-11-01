@@ -48,14 +48,7 @@ end
 
 Change web domain in puppet-hilary/environments/local/hiera/common.json to match your domain names
 
-"web_domain": "yourdomain.com",
-
 Change host names in puppet-hilary/environments/local/modules/localconfig/manifests/hostnames.pp to match your domain names
-
-    host { 'admin.yourdomain.com': ip => '127.0.0.1' }
-    host { 'tenant1.yourdomain.com': ip => '127.0.0.1' }
-    host { 'tenant2.yourdomain.com': ip => '127.0.0.1' }
-    host { 'tenant3.yourdomain.com': ip => '127.0.0.1' }
 
 Add the following to puppet-hilary/provisioning/vagrant/init.sh 
 
@@ -64,32 +57,6 @@ echo "enable multiverse repositories"
 sudo sed -i "/^# deb.*multiverse/ s/^# //" /etc/apt/sources.list
 sudo apt-get update
 
-for AWS, create a new user using IAM, choose a region and create a keypair in that region:
-
-Code	Name
-ap-northeast-1
-Asia Pacific (Tokyo)
-ap-southeast-1
-Asia Pacific (Singapore)
-ap-southeast-2
-Asia Pacific (Sydney)
-eu-central-1
-EU (Frankfurt)
-eu-west-1
-EU (Ireland)
-sa-east-1
-South America (Sao Paulo)
-us-east-1
-US East (N. Virginia)
-us-west-1
-US West (N. California)
-us-west-2
-US West (Oregon)
-
-Copy jdk to puppet folder
-
 Restart server (sudo reboot) and assocate a fix IP to the new instance if necessary
-
-bind ip to domain name (www, and subdomains)
 
 Run "vagrant ssh", and go to /opt/oae folder and run "sudo service hilary restart" - wait for a few minutes, your OAE demo using aws should be ready!

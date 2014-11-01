@@ -1,0 +1,102 @@
+#!/bin/sh
+
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+
+echo ""
+echo ""
+echo ""
+echo "Nightly Run: `date`"
+echo "========================================================="
+echo ""
+
+
+# Simple requirement check
+if [ ! -d <%= model_loader_dir %> ] ; then
+    echo "The model loader was not found. Exitting"
+    exit 1
+elif [ ! -f <%= model_loader_dir %>/scripts/users/0.txt ] ; then
+    echo "There was no batch found in the model loader."
+    echo "You can generate a batch with:"
+    echo "cd <%= model_loader_dir %> && node generate.js -b 1 -t oae -u 200 -g 400 -c 1000 -d 200 -f 200"
+    exit 1
+fi
+
+
+echo "Shutting down services..."
+<%= scripts_dir %>/shutdown.sh
+
+echo ""
+echo "Deleting data..."
+<%= scripts_dir %>/deletedata.sh
+
+echo ""
+echo "Restoring services with puppet"
+puppet agent -t
+
+
+echo ""
+echo "Performing production build (this will take a little while)"
+
+service hilary stop
+
+cd <%= ux_root_dir %>
+npm install -d
+npm install -g grunt-cli
+
+# Only cdnify QA0
+if [ "<%= web_domain %>" == "oae-qa0.oaeproject.org" ] ; then
+    CDN_URL="https://qa0-researchresearch-researchresearch.netdna-ssl.com" grunt
+else
+    grunt
+fi
+rm -rf /tmp/target
+mv target /tmp
+rm -rf <%= ux_root_dir %>
+mv /tmp/target/optimized <%= ux_root_dir %>
+mv /tmp/target/original <%= ux_root_dir %>/../original
+
+service hilary start
+
+DELAY=60
+
+echo ""
+echo "Sleeping ${DELAY}s to let the app server start up"
+sleep $DELAY
+
+# Restarting nginx so it finds the app server up quicker
+service nginx restart
+
+cd <%= scripts_dir %>
+
+echo ""
+echo "Updating oaesh"
+npm install -g oaesh
+
+# Create an 'oae' tenant.
+echo ""
+echo "Creating an 'oae' tenant and disabling reCaptcha"
+
+# Create the OAE tenant
+oaesh -i -U https://<%= admin_host %> -u administrator -p administrator -- \
+    exec /api/tenant/create -d "alias=oae" -d "displayName=Open Academic Environment" -d "host=oae.<%= web_domain %>"
+
+# Disable reCaptcha
+oaesh -i -U https://<%= admin_host %> -u administrator -p administrator -- \
+    config-set -k "oae-principals/recaptcha/enabled=false"
+
+if [[ "<%= flickr_api_key %>" != "unset" ]] ; then
+    # Configuring the Flickr and SlideShare Preview Processor
+    oaesh -i -U https://<%= admin_host %> -u administrator -p administrator -- \
+        config-set \
+            -k "oae-preview-processor/flickr/apikey=<%=flickr_api_key %>" \
+            -k "oae-preview-processor/flickr/apisecret=<%=flickr_api_secret %>" \
+            -k "oae-preview-processor/slideshare/sharedsecret=<%=slideshare_shared_secret %>" \
+            -k "oae-preview-processor/slideshare/apikey=<%= slideshare_api_key %>"
+fi
+
+# Performing a data load. An initial set of scripts should already be present on the server (requires
+# manual intervention)
+echo ""
+echo "Loading data via the model loader"
+cd <%= model_loader_dir %>
+node loaddata.js -b 1 -s 0 -h https://oae.<%= web_domain %>
