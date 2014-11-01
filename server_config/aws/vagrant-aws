@@ -57,6 +57,10 @@ echo "enable multiverse repositories"
 sudo sed -i "/^# deb.*multiverse/ s/^# //" /etc/apt/sources.list
 sudo apt-get update
 
+remove the if condition for installing puppet - see the init.sh for the working version
+
 Restart server (sudo reboot) and assocate a fix IP to the new instance if necessary
+
+bind the ip to domain name and subdomain names, then it should work.
 
 Run "vagrant ssh", and go to /opt/oae folder and run "sudo service hilary restart" - wait for a few minutes, your OAE demo using aws should be ready!
