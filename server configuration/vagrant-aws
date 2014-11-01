@@ -90,4 +90,6 @@ Copy jdk to puppet folder
 
 Restart server (sudo reboot) and assocate a fix IP to the new instance if necessary
 
+bind ip to domain name (www, and subdomains)
+
 Run "vagrant ssh", and go to /opt/oae folder and run "sudo service hilary restart" - wait for a few minutes, your OAE demo using aws should be ready!
