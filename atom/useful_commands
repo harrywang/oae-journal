@@ -1,0 +1,3 @@
+od -c filename.csv
+
+will display the file with C-Style escaped characters. CR as \r and LF as \n. It has numerous no. of options to explore.
