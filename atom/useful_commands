@@ -1,3 +1,6 @@
 od -c filename.csv
 
 will display the file with C-Style escaped characters. CR as \r and LF as \n. It has numerous no. of options to explore.
+
+regular expression:
+http://www.w3schools.com/jsref/jsref_obj_regexp.asp
