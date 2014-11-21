@@ -31,3 +31,9 @@ That will allow you to keep things a bit more modular and will remove the need t
 Find string in files in the current directory:
 
     grep -rl jquery .
+
+# Useful Tools
+
+Clear Cache for Chrome :https://chrome.google.com/webstore/detail/clear-cache/cppjkneekbjaeellbfkmgnhonkkjfpdn?hl=en
+
+Assign Command + R to reload after clearning the cache
