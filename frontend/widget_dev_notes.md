@@ -38,6 +38,14 @@ Clear Cache for Chrome :https://chrome.google.com/webstore/detail/clear-cache/cp
 
 Assign Command + R to reload after clearning the cache
 
+# Reset Cassandra
+
+deleted cassandra data - it is in the following location:
+
+/var/lib/cassandra/
+
+to reset cassandra would be to delete the contents of the  <data dir>/data/* <data dir>/commitlog/* <data dir>/saved_caches/*
+
 # Landing page customization
 
 Can each tenant have a different landing page?
