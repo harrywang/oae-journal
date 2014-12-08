@@ -32,6 +32,9 @@ Find string in files in the current directory:
 
     grep -rl jquery .
 
+Remove folders in git:
+    git rm -r one-of-the-directories
+
 # Useful Tools
 
 Clear Cache for Chrome :https://chrome.google.com/webstore/detail/clear-cache/cppjkneekbjaeellbfkmgnhonkkjfpdn?hl=en
