@@ -1,4 +1,4 @@
-### ****install cassandra****
+### ****Install cassandra****
 cassandra 2.0.10 was installed, just extract to the same folder.
 
 DO NOT USE HOMEBREW, BUT THE NOTE IS: See the note about Homebrew way in the end.
@@ -9,29 +9,33 @@ npm was installed at
    /usr/local/bin/npm
 Make sure that /usr/local/bin is in your $PATH.
 
-### ****install redis****
+### ****Install redis****
 download redis, extract the fold,
 
     cd [redis-stable folder]
     make
     src/redis-server
 
-### ****install elasticsearch****
+### ****Install elasticsearch****
     Harrys-MacBook-Pro:oae-dev harrywang$ cd elasticsearch-1.1.2/
 
     Harrys-MacBook-Pro:elasticsearch-1.1.2 harrywang$ bin/elasticsearch -f
 
 getopt: illegal option -- f
 
-### ****install rabbimq****
+### ****Install rabbimq****
+extract files and then run
+
     sbin/rabbitmq-server
 
-### ****install graphicsmagick****
+### ****Install graphicsmagick****
     brew install graphicsmagick
 
     brew install ghostscript
 
-### ****Preview Processor****
+When installing GraphicsMagick manually, make sure you have at least libpng, libjpeg and Ghostscript installed.
+
+### ****Insatll Preview Processor (after Hilary and 3akai)****
 Click to download PDFtk Server for the Mac OS X 10.6 (Snow Leopard), 10.7 (Lion) and 10.8 (Mountain Lion): see installation folder for the file, double click to install
 
 Open the Terminal, then enter:
@@ -50,790 +54,179 @@ need to change tmp folder:
 
     var tmpDir = '../tmp';
 
+then
+
     chmod 777 tmp
 
+and then
 
-config.previews = {
-  'enabled': true,
-  'tmpDir': tmpDir + '/previews',
-  'office': {
-    'binary': '/Applications/LibreOffice.app/Contents/MacOS/soffice',
-    'timeout': 120000
-    },
-    'pdftk': {
-      'binary': '/opt/pdflabs/pdftk/bin/pdftk',
-      'timeout': 120000
-      },
-      'pdf2htmlEX': {
-        'binary': '/usr/local/Cellar/pdf2htmlex/0.12/bin/pdf2htmlEX',
+    config.previews = {
+      'enabled': true,
+      'tmpDir': tmpDir + '/previews',
+      'office': {
+        'binary': '/Applications/LibreOffice.app/Contents/MacOS/soffice',
         'timeout': 120000
         },
-        'link': {
-          'renderDelay': 7500,
-          'renderTimeout': 30000,
-          'embeddableCheckTimeout': 15000
+        'pdftk': {
+          'binary': '/opt/pdflabs/pdftk/bin/pdftk',
+          'timeout': 120000
           },
-          'credentials': {
-            'username': 'administrator',
-            'password': 'administrator'
-          }
-        };
+          'pdf2htmlEX': {
+            'binary': '/usr/local/Cellar/pdf2htmlex/0.12/bin/pdf2htmlEX',
+            'timeout': 120000
+            },
+            'link': {
+              'renderDelay': 7500,
+              'renderTimeout': 30000,
+              'embeddableCheckTimeout': 15000
+              },
+              'credentials': {
+                'username': 'administrator',
+                'password': 'administrator'
+              }
+            };
 
 
-### **** Eitherpad****
-    Harrys-MacBook-Pro:oae-dev harrywang$ git clone git://github.com/ether/etherpad-lite.git
-    Harrys-MacBook-Pro:oae-dev harrywang$ cd etherpad-lite/
-    Harrys-MacBook-Pro:etherpad-lite harrywang$ bin/run.sh
+### **** Install Etherpad (after Hilary and 3akai)****
+
+**Note**: use 1.4.0 not 1.4.1 for now - you have to follow the instruciton below to make it work.
+
+- Download/Clone Etherpad 1.4.0 from the 1.4.0 tag on github: https://github.com/ether/etherpad-lite/tree/1.4.0
+
+- Edit the bin/installDeps script and comment out line 41 (the exit 1 line) and Run ./bin/installDeps.sh
+
+- Install oae and ep-headings plugin, go to etherpad folder:
 
 
-you should see the local version running at http://127.0.0.1:9001 in your browser.- close terminal and continue
-
-    Harrys-MacBook-Pro:oae-dev harrywang$ cd etherpad-lite/
-    Harrys-MacBook-Pro:etherpad-lite harrywang$ cd node_modules/
-    Harrys-MacBook-Pro:node_modules harrywang$ git clone https://github.com/oaeproject/ep_oae
-    Cloning into 'ep_oae'...
-    remote: Counting objects: 268, done.
-    remote: Total 268 (delta 0), reused 0 (delta 0)
-    Receiving objects: 100% (268/268), 57.79 KiB | 0 bytes/s, done.
-    Resolving deltas: 100% (114/114), done.
-    Checking connectivity... done.
+    Harrys-MacBook-Pro:node_modules harrywang$git clone    https://github.com/oaeproject/ep_oae
     Harrys-MacBook-Pro:node_modules harrywang$ cd ep_oae/
-    Harrys-MacBook-Pro:ep_oae harrywang$ ls
-    LICENSE		ep.json		lib		static
-    README.md	index.js	package.json
     Harrys-MacBook-Pro:ep_oae harrywang$ npm install
-    npm WARN excluding symbolic link index.js -> amqp.js
-    npm WARN excluding symbolic link index.js -> amqp.js
-    amqp@0.1.8 node_modules/amqp
-    └── lodash@1.3.1
-
-You can copy or symlink the static/css/pad.css in the ep_oae module to your-etherpad-dir/src/static/custom/pad.css in order to apply the OAE skin on etherpad.
-
-I choose to copy and replace the file.
-
-no change for RabbitMQ setting
-
     Harrys-MacBook-Pro:etherpad-lite harrywang$ npm install ep_headings
     ep_headings@0.1.6 node_modules/ep_headings
 
-In order to have custom titles for headers, copy or symlink the static/templates/editbarButtons.ejs file in the ep_oae module to your-etherpad-directory/node_modules/ep_headings/templates/editbarButtons.ejs.
+You can copy or symlink the static/css/pad.css in the ep_oae module to your-etherpad-dir/src/static/custom/pad.css in order to apply the OAE skin on etherpad. I choose to copy and replace the file.
 
-I choose copy and replace the file
+In order to have custom titles for headers, copy or symlink the static/templates/editbarButtons.ejs file in the ep_oae module to your-etherpad-directory/node_modules/ep_headings/templates/editbarButtons.ejs. I choose copy and replace the file
+
+- You need to run Etherpad once to generate the API key and setting.json file: ./etherpad-lite/bin/run.sh the API is in the APIKEY.txt in etherpad-lite folder
+
+- Lastly, you need to edit the setting.json file and Hilary config.js as follows:
+
+  - Go to Hilary folder, and open config.js file, edit the API in the following section:
+
+        config.etherpad = {
+          'apikey': '485eef7fe52994288736d4c5174ce61c9eb6f96905136ccfb70f03be8616a05e',
+          'hosts': [
+          {
+            'host': '127.0.0.1',
+            'port': 9001
+          }
+          ]
+        };
+
+  - Go to Etherpad folder and open setting.json, edit the following sections:
+    set the requireSession and editOnly values to true in etherpad's settings.json file.
+  - It's recommended to also add in a sessionKey. This can be any random value, but should be the same across the cluster.
+
+          "sessionKey" : "1234567890",
+
+  - change the database setting:
+
+          //The Type of the database. You can choose between dirty, postgres, sqlite and mysql
+          //You shouldn't use "dirty" for for anything else than testing or development
+          "dbType": "cassandra",
+          //the database specific settings
+          "dbSettings" : {
+            "hosts": ["127.0.0.1:9160"],
+            "keyspace": "oae",
+            "cfName": "Etherpad",
+            "user": "",
+            "pass": "",
+            "timeout": 3000,
+            "replication": 1,
+            "strategyClass": "SimpleStrategy"
+            },
+
+  - change default text
+          "defaultPadText" : "",
+  - add the websocket protocol. It's important to add this as the first element of the array.
+          "socketTransportProtocols" : ["websocket", "xhr-polling", "jsonp-polling", "htmlfile"]
+
+  - add toolbar setting:
+          "toolbar": {
+          "left": [
+          ["bold", "italic", "underline", "strikethrough"],
+          ["orderedlist", "unorderedlist", "indent", "outdent"]
+          ],
+          "right": [
+          ["showusers"]
+          ]
+          },
+
+
+Other useful references:
+
+Simon's comments
+>The latest etherpad versions (1.4.1) hardcoded a path. I have a fix pending, that addresses this.
+The older etherpad versions don’t have this problem, BUT they can not be installed through
+the installer script if you have npm 2 (or newer), which most people have by now. Annoyingly, you should be able to solve this by doing the following:
+- Check out the 1.4.0 tag
+- Edit the bin/installDeps script and comment out line 41 (the exit 1 line)
+- Run ./bin/installDeps.sh
+- Start the etherpad server
+I’ll be sending them a fix for the hardcoded path so everyone can use their latest versions again.
+
+
+by default, you make the standalone etherpad work as follows
+
+  Harrys-MacBook-Pro:oae-dev harrywang$ cd etherpad-lite/
+  Harrys-MacBook-Pro:etherpad-lite harrywang$ cd node_modules/
+  Harrys-MacBook-Pro:node_modules harrywang$ git clone
+you should see the local version running at http://127.0.0.1:9001 in your browser.- close terminal and continue
+
 
 You also need to change the API key in config.js in Hilary to the API key of your local copy of etherpad:
 
 >Authentication works via a token that is sent with each request as a post parameter. There is a single token per Etherpad-Lite deployment. This token will be random string, generated by Etherpad-Lite at the first start. It will be saved in APIKEY.txt in the root folder of Etherpad Lite. Only Etherpad Lite and the requesting application knows this key. Token management will not be exposed through this API."
 
-You will need to set the requireSession and editOnly values to true in etherpad's settings.json file.
-
-It's recommended to also add in a sessionKey. This can be any random value, but should be the same across the cluster.
-
-To get it working, change the dbType to cassandra and enter the following dbSettings:
-
-"dbSettings" : {
-  "hosts": ["127.0.0.1:9160"],
-  "keyspace": "oae",
-  "cfName": "Etherpad",
-  "user": "",
-  "pass": "",
-  "timeout": 3000,
-  "replication": 1,
-  "strategyClass": "SimpleStrategy"
-}
-The last step is to add the websocket protocol. It's important to add this as the first element of the array.
-
-"socketTransportProtocols" : ["websocket", "xhr-polling", "jsonp-polling", "htmlfile"]
-
-the setting.json is attached in the same folder.
-
-### ****install nginx and pcre****
+### Install nginx and pcre
 
     Harrys-MacBook-Pro:oae-dev harrywang$ cd nginx-1.7.6/
     Harrys-MacBook-Pro:nginx-1.7.6 harrywang$ ./configure --with-pcre=../pcre-8.36/
     Harrys-MacBook-Pro:nginx-1.7.6 harrywang$ sudo make install
 
-### ****install Hilary and 3akai-ux****
+Configure Nginx
+
+The following is how to get your id and group for you local mac:
+
+    Harrys-MacBook-Pro:~ harrywang$ id
+    uid=501(harrywang) gid=20(staff) groups=20(staff),401(com.apple.sharepoint.group.1),12(everyone),61(localaccounts),79(_appserverusr),80(admin),81(_appserveradm),98(_lpadmin),33(_appstore),100(_lpoperator),204(_developer),398(com.apple.access_screensharing),399(com.apple.access_ssh)
+
+    Change all Nginx (see attached file)
+
+    sudo /usr/local/nginx/sbin/nginx -c /Users/harrywang/code/oae-dev/3akai-ux/nginx/nginx.conf
+
+    Harrys-MacBook-Pro:Hilary harrywang$ npm install -d
+
+    Harrys-MacBook-Pro:Hilary harrywang$ node app.js | node_modules/.bin/bunyan
+
+### Install Hilary and 3akai-ux
 
     Harrys-MacBook-Pro:oae-dev harrywang$ git clone git://github.com/oaeproject/Hilary.git
     Harrys-MacBook-Pro:oae-dev harrywang$ git clone git://github.com/oaeproject/3akai-ux.git
 
-### ****configure hosts file****
+
+Configure Hilary
+create files folder at the same level as Hilary
+
+no need to: Configure the config.files.uploadDir property to point to a directory that exists. The reference to this directory should not have a trailing slash. This directory is used to store files such as profile pictures, content bodies, previews, etc...
+
+
+### Configure hosts file
 add the following entries to your /etc/hosts file:
 
 127.0.0.1   admin.oae.com
 127.0.0.1   tenant1.oae.com
-
-### ****configure Hilary****
-create files folder at the same level as Hilary
-
-### ****configure Nginx****
-
-The following is how to get your id and group for you local mac:
-Harrys-MacBook-Pro:~ harrywang$ id
-uid=501(harrywang) gid=20(staff) groups=20(staff),401(com.apple.sharepoint.group.1),12(everyone),61(localaccounts),79(_appserverusr),80(admin),81(_appserveradm),98(_lpadmin),33(_appstore),100(_lpoperator),204(_developer),398(com.apple.access_screensharing),399(com.apple.access_ssh)
-
-Change all Nginx (see attached file)
-
-sudo /usr/local/nginx/sbin/nginx -c /Users/harrywang/code/oae-dev/3akai-ux/nginx/nginx.conf
-
-Harrys-MacBook-Pro:Hilary harrywang$ npm install -d
-
-Harrys-MacBook-Pro:Hilary harrywang$ node app.js | node_modules/.bin/bunyan
-
-### ****NOTE****
-
-no need to:
-Configure the config.files.uploadDir property to point to a directory that exists. The reference to this directory should not have a trailing slash. This directory is used to store files such as profile pictures, content bodies, previews, etc...
-
-Not done:
-Etherpad setup
-
-Configure the config.etherpad.apikey property to the API Key that can be found in your-etherpad-dir/APIKEY.txt
-
-### ****nginx.conf****
-
-user                    harrywang staff;
-worker_processes        5;
-error_log               logs/error.log;
-worker_rlimit_nofile    8192;
-
-events {
-    worker_connections    4096;
-}
-
-http {
-
-    # Allows us to have "server_name" strings up to 32 characters
-    server_names_hash_bucket_size  64;
-
-
-    ####################
-    ## PROXY SETTINGS ##
-    ####################
-
-    proxy_next_upstream error timeout http_502;
-    # Only give the app server 5 seconds for a request before assuming it's down and retrying
-    proxy_connect_timeout   5;
-    proxy_read_timeout      5;
-
-    # Rewrite http headers to upstream servers
-    proxy_http_version 1.1;
-    proxy_redirect off;
-    proxy_set_header Connection "";
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header Host $http_host;
-    proxy_set_header X-NginX-Proxy true;
-
-
-    ###################
-    ## GZIP SETTINGS ##
-    ###################
-
-    gzip on;
-    gzip_min_length 1000;
-    gzip_http_version 1.1;
-    gzip_comp_level 5;
-    gzip_proxied any;
-    gzip_types text/css text/plain text/xml application/xml application/xml+rss text/javascript application/javascript application/x-javascript application/json;
-
-
-    ##########################
-    ## MAXIMUM REQUEST SIZE ##
-    ##########################
-
-    # Determines the maximum filesize that a user can upload.
-    client_max_body_size 4096M;
-
-
-    ##################
-    ##################
-    ## GLOBAL ADMIN ##
-    ##################
-    ##################
-
-    ####################
-    ## LOAD BALANCING ##
-    ####################
-
-    upstream globaladminworkers {
-        server 127.0.0.1:2000;
-        # Add extra app nodes here.
-    }
-
-    server {
-        listen       80;
-        server_name  admin.oae.com;
-
-
-        ######################
-        ## SHARED RESOURCES ##
-        ######################
-
-        # Enable CORS support for the font-awesome webfont
-        # so we can load it from our CDN
-        location /shared/vendor/css/font-awesome/fonts/ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/shared/vendor/css/font-awesome/fonts/;
-            add_header Access-Control-Allow-Origin "*";
-            expires max;
-        }
-
-        location /shared/ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/shared/;
-            autoindex off;
-            expires max;
-        }
-
-        # HTML files under /shared/oae/errors are not hashed and should not be cached
-        location ~* /shared/oae/errors/([^\.]+).html$ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/shared/oae/errors/$1.html;
-            expires -1;
-        }
-
-        rewrite ^/accessdenied      /shared/oae/errors/accessdenied.html last;
-        rewrite ^/noscript          /shared/oae/errors/noscript.html last;
-        rewrite ^/notfound          /shared/oae/errors/notfound.html last;
-        rewrite ^/servermaintenance /shared/oae/errors/servermaintenance.html last;
-        rewrite ^/unavailable       /shared/oae/errors/unavailable.html last;
-
-        rewrite ^/favicon.ico       /shared/oae/img/favicon.ico last;
-        rewrite ^/robots.txt        /shared/oae/robots.txt last;
-
-
-        #####################
-        ## ADMIN RESOURCES ##
-        #####################
-
-        location /ui/ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/ui/;
-            autoindex off;
-            expires max;
-        }
-
-        location /admin/ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/admin/;
-            autoindex off;
-            expires max;
-        }
-
-        # HTML files under /admin are not hashed and should not be cached
-        location ~* /admin/([^\.]+).html$ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/admin/$1.html;
-            expires -1;
-        }
-
-        rewrite ^/$                     /admin/index.html last;
-        rewrite ^/configuration         /admin/index.html last;
-        rewrite ^/maintenance           /admin/index.html last;
-        rewrite ^/skinning              /admin/index.html last;
-        rewrite ^/tenant/(.*)$          /admin/index.html last;
-        rewrite ^/tenants               /admin/index.html last;
-        rewrite ^/usermanagement        /admin/index.html last;
-
-
-        ######################
-        ## WIDGET RESOURCES ##
-        ######################
-
-        location /node_modules/ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/node_modules/;
-            autoindex off;
-            expires max;
-        }
-
-
-        ####################
-        ## DOCS RESOURCES ##
-        ####################
-
-        location /docs/ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/docs/;
-            autoindex off;
-        }
-
-        # HTML files under /docs are not hashed and should not be cached
-        location ~* /docs/([^\.]+).html$ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/docs/$1.html;
-            expires -1;
-        }
-
-        rewrite ^/docs$                     /docs/index.html last;
-        rewrite ^/docs/internal$            /docs/internal/index.html last;
-        rewrite ^/docs/internal/backend     /docs/internal/index.html last;
-        rewrite ^/docs/internal/frontend    /docs/internal/index.html last;
-        rewrite ^/docs/rest$                /docs/rest/index.html last;
-
-
-        #################
-        ## ERROR PAGES ##
-        #################
-
-        error_page      401     /shared/oae/errors/accessdenied.html;
-        error_page      404     /shared/oae/errors/notfound.html;
-        error_page      502     /shared/oae/errors/unavailable.html;
-        error_page      503     /shared/oae/errors/servermaintenance.html;
-
-
-        #########################
-        ## APP SERVER REQUESTS ##
-        #########################
-
-        location /api/ui/skin {
-            expires 15m;
-            proxy_pass http://globaladminworkers;
-        }
-
-        location /api/ui/staticbatch {
-            expires max;
-            proxy_pass http://globaladminworkers;
-        }
-
-        location /api/ui/widgets {
-            expires 15m;
-            proxy_pass http://globaladminworkers;
-        }
-
-        # Explicitly don't cache any other API requests
-        location /api/ {
-            expires -1;
-            proxy_pass http://globaladminworkers;
-        }
-
-        # This can be cached indefinitely because we use signatures that change over time to control invalidation
-        location /api/download/signed {
-            expires max;
-            proxy_pass http://globaladminworkers;
-        }
-
-        location /api/user/create {
-            expires -1;
-            proxy_next_upstream error http_502;
-            proxy_pass http://globaladminworkers;
-        }
-
-        location /api/user/createGlobalAdminUser {
-            expires -1;
-            proxy_next_upstream error http_502;
-            proxy_pass http://globaladminworkers;
-        }
-
-        location /api/user/createTenantAdminUser {
-            expires -1;
-            proxy_next_upstream error http_502;
-            proxy_pass http://globaladminworkers;
-        }
-
-        location /api/user/import {
-            expires -1;
-            proxy_read_timeout 300;
-            proxy_next_upstream error http_502;
-            proxy_pass http://globaladminworkers;
-        }
-
-
-        ####################
-        ## FILE DOWNLOADS ##
-        ####################
-
-        # An internal endpoint that is used by the local file storage backend.
-        # Change the alias so that it points to the directory that will contain the file bodies.
-        # This should match with the oae-content/storage/local-dir config value as configured
-        # in the admin UI.
-        location /files {
-            internal;
-            alias /Users/harrywang/code/oae-dev/files;
-        }
-
-    }
-
-
-    ###################
-    ###################
-    ## TENANT SERVER ##
-    ###################
-    ###################
-
-    ####################
-    ## LOAD BALANCING ##
-    ####################
-
-    upstream tenantworkers {
-        server 127.0.0.1:2001;
-        # Add extra app nodes here.
-    }
-
-    server {
-        listen   80 default_server;
-
-
-        ######################
-        ## SHARED RESOURCES ##
-        ######################
-
-        # Enable CORS support for the font-awesome webfont
-        # so we can load it from our CDN
-        location /shared/vendor/css/font-awesome/fonts/ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/shared/vendor/css/font-awesome/fonts/;
-            add_header Access-Control-Allow-Origin "*";
-            expires max;
-        }
-
-        location /shared/ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/shared/;
-            autoindex off;
-            expires max;
-        }
-
-        # HTML files under /shared/oae/errors are not hashed and should not be cached
-        location ~* /shared/oae/errors/([^\.]+).html$ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/shared/oae/errors/$1.html;
-            expires -1;
-        }
-
-        rewrite ^/accessdenied      /shared/oae/errors/accessdenied.html last;
-        rewrite ^/noscript          /shared/oae/errors/noscript.html last;
-        rewrite ^/notfound          /shared/oae/errors/notfound.html last;
-        rewrite ^/servermaintenance /shared/oae/errors/servermaintenance.html last;
-        rewrite ^/unavailable       /shared/oae/errors/unavailable.html last;
-
-        rewrite ^/favicon.ico       /shared/oae/img/favicon.ico last;
-        rewrite ^/robots.txt        /shared/oae/robots.txt last;
-
-
-        #####################
-        ## ADMIN RESOURCES ##
-        #####################
-
-        location /admin/ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/admin/;
-            autoindex off;
-            expires max;
-        }
-
-        # HTML files under /admin are not hashed and should not be cached
-        location ~* /admin/([^\.]+).html$ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/admin/$1.html;
-            expires -1;
-        }
-
-        rewrite ^/admin$                 /admin/index.html last;
-        rewrite ^/admin/configuration    /admin/index.html last;
-        rewrite ^/admin/tenants          /admin/index.html last;
-        rewrite ^/admin/skinning         /admin/index.html last;
-        rewrite ^/admin/usermanagement   /admin/index.html last;
-
-
-        #######################
-        ## MAIN UI RESOURCES ##
-        #######################
-
-        # TODO: Remove this custom landing page strategy and /custom handling when we have configurable landing pages
-        location = / {
-            autoindex off;
-            expires -1;
-
-            # Tell Nginx that the root is the UI directory so custom files can be located with try_files
-            root /Users/harrywang/code/oae-dev/3akai-ux;
-
-            try_files /custom/$host/index.html /ui/index.html;
-        }
-
-        location /ui/ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/ui/;
-            autoindex off;
-            expires max;
-        }
-
-        location /custom/ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/custom/;
-            autoindex off;
-            expires max;
-        }
-
-        # HTML files under /ui are not hashed and should not be cached
-        location ~* /ui/([^\.]+).html$ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/ui/$1.html;
-            expires -1;
-        }
-
-        rewrite ^/content           /ui/content.html last;
-        rewrite ^/discussion        /ui/discussion.html last;
-        rewrite ^/folder            /ui/folder.html last;
-        rewrite ^/group             /ui/group.html last;
-        rewrite ^/me                /ui/me.html last;
-        rewrite ^/search            /ui/search.html last;
-        rewrite ^/user              /ui/user.html last;
-
-
-        ######################
-        ## WIDGET RESOURCES ##
-        ######################
-
-        location /node_modules/ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/node_modules/;
-            autoindex off;
-            expires max;
-        }
-
-
-        ####################
-        ## DOCS RESOURCES ##
-        ####################
-
-        location /docs/ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/docs/;
-            autoindex off;
-        }
-
-        # HTML files under /docs are not hashed and should not be cached
-        location ~* /docs/([^\.]+).html$ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/docs/$1.html;
-            expires -1;
-        }
-
-        rewrite ^/docs$                     /docs/index.html last;
-        rewrite ^/docs/internal$            /docs/internal/index.html last;
-        rewrite ^/docs/internal/backend     /docs/internal/index.html last;
-        rewrite ^/docs/internal/frontend    /docs/internal/index.html last;
-        rewrite ^/docs/rest$                /docs/rest/index.html last;
-
-
-        ####################
-        ## TEST RESOURCES ##
-        ####################
-
-        location /tests/ {
-            alias /Users/harrywang/code/oae-dev/3akai-ux/tests/;
-            autoindex off;
-            expires -1;
-        }
-
-        rewrite ^/tests$  /tests/index.html last;
-
-
-        #################
-        ## ERROR PAGES ##
-        #################
-
-        error_page      401     /shared/oae/errors/accessdenied.html;
-        error_page      404     /shared/oae/errors/notfound.html;
-        error_page      502     /shared/oae/errors/unavailable.html;
-        error_page      503     /shared/oae/errors/servermaintenance.html;
-
-
-        #########################
-        ## APP SERVER REQUESTS ##
-        #########################
-
-        location /api/auth/shibboleth/callback {
-            expires -1;
-            proxy_read_timeout 120;
-            proxy_next_upstream error http_502;
-            proxy_pass http://tenantworkers;
-        }
-
-        location /api/config {
-            expires 15m;
-            proxy_pass http://tenantworkers;
-        }
-
-        location /api/content/create {
-            expires -1;
-            proxy_read_timeout 300;
-            proxy_next_upstream error http_502;
-            proxy_pass http://tenantworkers;
-        }
-
-        location ~* /api/content/([^\/]+)/messages {
-            expires -1;
-            proxy_next_upstream error http_502;
-            proxy_pass http://tenantworkers;
-        }
-
-        location ~* /api/content/([^\/]+)/newversion {
-            expires -1;
-            proxy_read_timeout 300;
-            proxy_next_upstream error http_502;
-            proxy_pass http://tenantworkers;
-        }
-
-        location ~* /api/content/([^\/]+)/publish {
-            expires -1;
-            proxy_read_timeout 300;
-            proxy_next_upstream error http_502;
-            proxy_pass http://tenantworkers;
-        }
-
-        location ~* /api/content/([^\/]+)/revisions/([^\/]+)/previews {
-            expires -1;
-            proxy_read_timeout 1200;
-            proxy_next_upstream error http_502;
-            proxy_pass http://tenantworkers;
-        }
-
-        location ~* /api/content/([^\/]+)/revisions/([^\/]+)/restore {
-            expires -1;
-            proxy_read_timeout 300;
-            proxy_next_upstream error http_502;
-            proxy_pass http://tenantworkers;
-        }
-
-        location /api/discussion/create {
-            expires -1;
-            proxy_next_upstream error http_502;
-            proxy_pass http://tenantworkers;
-        }
-
-        location ~* /api/discussion/([^\/]+)/messages {
-            expires -1;
-            proxy_next_upstream error http_502;
-            proxy_pass http://tenantworkers;
-        }
-
-        # This can be cached indefinitely because we use signatures that change over time to control invalidation
-        location /api/download/signed {
-            expires max;
-            proxy_pass http://tenantworkers;
-        }
-
-        location /api/folder {
-            expires -1;
-            proxy_next_upstream error http_502;
-            proxy_pass http://tenantworkers;
-        }
-
-        location /api/group/create {
-            expires -1;
-            proxy_next_upstream error http_502;
-            proxy_pass http://tenantworkers;
-        }
-
-        location ~* /api/group/([^\/]+)/picture {
-            expires -1;
-            proxy_read_timeout 60;
-            proxy_next_upstream error http_502;
-            proxy_pass http://tenantworkers;
-        }
-
-        location /api/ui/skin {
-            expires 15m;
-            proxy_pass http://tenantworkers;
-        }
-
-        location ~* /api/group/([^\/]+)/picture {
-            expires -1;
-            proxy_read_timeout 60;
-            proxy_next_upstream error http_502;
-            proxy_pass http://tenantworkers;
-        }
-
-        location /api/ui/staticbatch {
-            expires max;
-            proxy_pass http://tenantworkers;
-        }
-
-        location /api/ui/widgets {
-            expires 15m;
-            proxy_pass http://tenantworkers;
-        }
-
-        location /api/user/create {
-            expires -1;
-            proxy_next_upstream error http_502;
-            proxy_pass http://tenantworkers;
-        }
-
-        location /api/user/createTenantAdminUser {
-            expires -1;
-            proxy_next_upstream error http_502;
-            proxy_pass http://tenantworkers;
-        }
-
-        location /api/user/import {
-            expires -1;
-            proxy_read_timeout 300;
-            proxy_next_upstream error http_502;
-            proxy_pass http://tenantworkers;
-        }
-
-        location ~* /api/user/([^\/]+)/picture {
-            expires -1;
-            proxy_read_timeout 60;
-            proxy_next_upstream error http_502;
-            proxy_pass http://tenantworkers;
-        }
-
-
-        ########################
-        ## PUSH NOTIFICATIONS ##
-        ########################
-
-        location /api/push/ {
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "upgrade";
-            proxy_set_header Host $host;
-            proxy_pass http://tenantworkers;
-            proxy_redirect off;
-            proxy_buffering off;
-            proxy_read_timeout 3600;
-        }
-
-
-        # Explicitly don't cache any other API requests
-        location /api/ {
-            expires -1;
-            proxy_pass http://tenantworkers;
-        }
-
-
-        ####################
-        ## FILE DOWNLOADS ##
-        ####################
-
-        # An internal endpoint that is used by the local file storage backend.
-        # Change the alias so that it points to the directory that will contain the file bodies.
-        # This should match with the oae-content/storage/local-dir config value as configured
-        # in the admin UI.
-        location /files {
-            internal;
-            alias /Users/harrywang/code/oae-dev/files;
-        }
-
-
-        ######################
-        ## ETHERPAD SERVERS ##
-        ######################
-
-        location /etherpad/0 {
-            expires 15m;
-
-            rewrite ^/etherpad/0(.*)$ $1 break;
-
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header Host $http_host;
-            proxy_set_header X-NginX-Proxy true;
-            proxy_pass http://127.0.0.1:9001;
-            proxy_buffering off;
-            proxy_read_timeout 60;
-        }
-
-        location /etherpad/0/socket.io/1/websocket/ {
-            rewrite ^/etherpad/0(.*)$ $1 break;
-
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "upgrade";
-            proxy_set_header Host $host;
-            proxy_pass http://127.0.0.1:9001;
-            proxy_buffering off;
-            proxy_read_timeout 60;
-        }
-    }
-
-    include /Users/harrywang/code/oae-dev/3akai-ux/nginx/mime.conf;
-}
 
 #### ****homebrew cassandra****
 brew install cassandra 2.0.9, the new 2.1.x does not work
