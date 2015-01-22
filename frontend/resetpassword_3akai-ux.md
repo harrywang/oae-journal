@@ -2,9 +2,9 @@ Front-end:3akai-ux
 ===
 
 ##### Add resetpassword link under signin window.
-    vi /3akai-ux/node_modules/oae-core/topnavigation/toptopnavigation.html
+    vi /3akai-ux/node_modules/oae-core/topnavigation/topnavigation.html
 
-    ### Find __MSG__NO_ACCOUNT_YET__ in the html file, add the following html code above it.
+    ### Find “__MSG__NO_ACCOUNT_YET__” in the file above, add the following html code above it.
 
     <span>__MSG__FORGET_PASSWORD__
       <button
@@ -377,49 +377,162 @@ define(['jquery','underscore','oae.core'], function($, _, oae) {
 touch 3akai-ux/ui/resetpassword.html
 ```
 
+```html
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta name="viewport" content="width=device-width">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<noscript>
+<meta http-equiv="Refresh" content="1; URL=/noscript">
+</noscript>
+
+<!-- CORE CSS -->
+<link rel="stylesheet" type="text/css" href="/shared/oae/css/oae.core.css" />
+<link rel="stylesheet" type="text/css" href="/api/ui/skin" />
+
+<!-- PAGE CSS -->
+<link rel="stylesheet" type="text/css" href="/ui/css/oae.resetpassword.css" />
+</head>
+<body>
+
+<!-- HEADER -->
+<div data-widget="topnavigation"><!-- --></div>
+
+<form id="resetpassword-input-password" class="tab-pane form-horizontal" role="form">
+<div class="modal-body">
+<div class="well">
+<div class="form-group">
+<label class="control-label col-lg-5" for="resetpassword-new-password">__MSG__NEW_PASSWORD_COLON__</label>
+<div class="col-lg-7">
+<input type="password" id="resetpassword-new-password" name="resetpassword-new-password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" class="form-control required maxlength-short">
+</div>
+</div>
+<div class="form-group">
+<label class="control-label col-lg-5" for="resetpassword-retype-password">__MSG__RETYPE_NEW_PASSWORD_COLON__</label>
+<div class="col-lg-7">
+<input type="password" id="resetpassword-retype-password" name="resetpassword-retype-password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" class="form-control required maxlength-short">
+</div>
+</div>
+</div>
+</div>
+<div class="text-center">
+<button type="submit" class="btn btn-primary">Submit</button>
+</div>
+</form>
+
+<!-- FOOTER -->
+<div data-widget="footer"><!-- --></div>
+
+<!-- JAVASCRIPT -->
+<script data-main="/shared/oae/api/oae.bootstrap.js" data-loadmodule="/ui/js/resetpassword.js" src="/shared/vendor/js/requirejs/require-jquery.js"></script>
+</body>
+</html>
+```
+
 ##### Create a js file for reseting password page
 ```
 touch 3akai-ux/ui/js/resetpassword.js
 ```
 
-##### Configure **nginx** configuration file
-```
-vi /Users/Steven/oae/3akai-ux/nginx/nginx.conf
-```
+```js
+/*!
+* Copyright 2014 Apereo Foundation (AF) Licensed under the
+* Educational Community License, Version 2.0 (the "License"); you may
+* not use this file except in compliance with the License. You may
+* obtain a copy of the License at
+*
+*     http://opensource.org/licenses/ECL-2.0
+*
+* Unless required by applicable law or agreed to in writing,
+* software distributed under the License is distributed on an "AS IS"
+* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+* or implied. See the License for the specific language governing
+* permissions and limitations under the License.
+*/
 
-Add following to **nginx.conf** file after `rewrite ^/user`
-```
-rewrite ^/resetpassword$	/ui/resetpassword.html last;
-rewrite ^/resetpassword/(.*)	/ui/resetpassword.html last;
-```
+require(['jquery','oae.core'], function($, oae) {
 
-DB: Cassandra
-=======
-##### Add a new column for User to store secret token
-```
-$ cd apache-cassandra-2.0.1/bin
-$ ./cqlsh
+  // Set the page title
+  oae.api.util.setBrowserTitle('Reset Password');
 
-### select column family
-cqlsh> USE OAE;
 
-### check the current schema for table
-cqlsh> DESCRIBE TABLE "AuthenticationLoginId";
 
-### check the details for table
-cqlsh> SELECT * FROM "AuthenticationLoginId";
+  /**
+  * Get Secret: A start point for reseting passord
+  */
+  var getSecret = function(){
+    $(document).on('submit','#resetpassword-input-username', function(event){
 
-### add a new column to table
-cqlsh> ALTER TABLE "AuthenticationLoginId" ADD "secret" text;
+      // disable redirect to other page
+      event.preventDefault();
 
-### set the consistency to table
-cqlsh> CONSISTENCY QUORUM;
+      var username = $.trim($('#resetpassword-username', $(this)).val());
 
-```
+      $.ajax({
+        'url': '/api/auth/local/reset/init/oae/'+username,
+        'type': 'POST',
+        'data': null,
+        'success': function(data) {
+          //callback(null, data);
+          oae.api.util.notification('Congratulations!','A Email has been sent to your Email address.');
+        },
+        'error': function(data) {
+          oae.api.util.notification('Sorry!','The Email has not been sent out!');
+        }
+      });
+    });
+  };
 
-Email Server Config
-========
-##### Modify your own user and pass under the following file for smtpTransport.
-```
-vi Hilary/config.js
+  /**
+  * ResetPassword: Last Step for reseting passord
+  */
+  var resetPassword = function(username,secret){
+    $(document).on('submit','#resetpassword-input-password', function(event){
+
+      // disable redirect to other page
+      event.preventDefault();
+
+      var password = $.trim($('#resetpassword-new-password', $(this)).val());
+
+      $.ajax({
+        'url': '/api/auth/local/reset/change/oae/' + username + '/' + secret,
+        'type': 'POST',
+        'data': {'newPassword':password},
+        'success': function(data) {
+          //callback(null, data);
+          oae.api.util.notification('Congratulations!','Your password has been succesfully changed!');
+
+          // wait for 3 seconds and redirect the user to mainpage
+          setTimeout(
+            function()
+            {
+              //redirect the user to setting page
+              window.location.href = "/me";
+
+              }, 3000);
+              },
+              'error': function(data) {
+                oae.api.util.notification('Sorry!','The password has not been changed!');
+              }
+              });
+              });
+            };
+
+            /**
+            * Select a page to display: A start point for reseting passord
+            */
+            var displayHTML = function(){
+
+                  var username = urlArray[2];
+                  var secret = urlArray[3];
+                  resetPassword(username,secret);
+
+            };
+
+              displayHTML();
+
+            });
 ```

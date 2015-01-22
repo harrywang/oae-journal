@@ -56,29 +56,32 @@ $ touch reset.txt.jst
 $ touch reset.shared.js
 ```
 
+##### Configure **nginx** configuration file
+```
+vi /Users/Steven/oae/3akai-ux/nginx/nginx.conf
+```
+
+Add following to **nginx.conf** file after `rewrite ^/user`
+```
+rewrite ^/resetpassword$	/ui/resetpassword.html last;
+rewrite ^/resetpassword/(.*)	/ui/resetpassword.html last;
+```
+
 DB: Cassandra
 =======
 ##### Add a new column for User to store secret token
-```
-$ cd apache-cassandra-2.0.1/bin
-$ ./cqlsh
+```js
+vi Hilary/node_modules/oae-authentication /lib/init.js
 
-### select column family
-cqlsh> USE OAE;
+@Line220:
 
-### check the current schema for table
-cqlsh> DESCRIBE TABLE "AuthenticationLoginId";
+'AuthenticationLoginId': 'CREATE TABLE "AuthenticationLoginId" ("loginId" text PRIMARY KEY, "userId" text, "password" text)',
 
-### check the details for table
-cqlsh> SELECT * FROM "AuthenticationLoginId";
-
-### add a new column to table
-cqlsh> ALTER TABLE "AuthenticationLoginId" ADD "secret" text;
-
-### set the consistency to table
-cqlsh> CONSISTENCY QUORUM;
+'AuthenticationLoginId': 'CREATE TABLE "AuthenticationLoginId" ("loginId" text PRIMARY KEY, "userId" text, "password" text, "secretToken" text)',
 
 ```
+
+
 
 Email Server Config
 ========
